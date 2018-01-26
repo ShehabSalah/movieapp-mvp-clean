@@ -8,7 +8,7 @@ It's based on the [MVP sample](https://github.com/ShehabSalah/movieapp-mvp), add
 * **Domain**: Holds all business logic. The domain layer starts with classes named *use cases* or *interactors* used by the application presenters. These *use cases* represent all the possible actions a developer can perform from the presentation layer.
 * **Repository**: Repository pattern from the base sample.
 
-Systems based on clean architecture have the following characteristics: separation of concerns, multilayer, independent of frameworks, independent of user interfaces, independent of databases, testable by layer, with a dependency rule that says that code dependencies can only point inwards, from lower leves like the presentation layer, to higher levels like the data layer.
+Systems based on clean architecture have the following characteristics: separation of concerns, multilayer, independent of frameworks, independent of user interfaces, independent of databases, testable by layer, with a dependency rule that says that code dependencies can only point inwards, from lower levels like the presentation layer, to higher levels like the data layer.
 
 <img src="https://github.com/googlesamples/android-architecture/wiki/images/mvp-clean.png" alt="Diagram"/>
 
