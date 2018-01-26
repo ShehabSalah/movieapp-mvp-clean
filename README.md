@@ -1,4 +1,4 @@
-# movieapp-mvp-clean MVP + Clean Architecture
+# movieapp-mvp-clean MVP + Clean Architecture [![Build Status](https://travis-ci.org/ShehabSalah/movieapp-mvp-clean.svg?branch=master)](https://travis-ci.org/ShehabSalah/movieapp-mvp-clean)
 ### Summary
 This sample stands on the principles of [Clean Architecture](https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html), using MVP for the presentation layer.
 
