@@ -21,7 +21,7 @@ Use cases are good for operation reuse over our domain code.
 
 The example application is based on the 3-tier of the clean architectural approach: the presentation layer, the domain layer, and the data layer.
 
-![http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/](https://github.com/android10/Sample-Data/blob/master/Android-CleanArchitecture/clean_architecture_layers_details.png)
+![http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/](https://github.com/android10/Sample-Data/blob/master/Android-CleanArchitecture/clean_architecture_layers.png)
 
 The presentation layer is implemented as an MVP design pattern and it represents the application is an Android phone & table module., the domain layer contains the use cases which responsible on communicating with the data layer and applying the business logic, and the data layer is the one who responsible on getting the data from the local database and remote server.
 
