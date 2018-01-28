@@ -143,6 +143,7 @@
     <orderEntry type="library" name="com.jakewharton:butterknife-8.8.1" level="project" />
     <orderEntry type="library" name="com.jakewharton:butterknife-annotations:8.8.1@jar" level="project" />
     <orderEntry type="library" name="com.squareup.retrofit2:converter-gson:2.2.0@jar" level="project" />
+    <orderEntry type="library" name="com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2@jar" level="project" />
     <orderEntry type="library" name="android.arch.core:common:1.0.0@jar" level="project" />
     <orderEntry type="library" name="android.arch.persistence:db-framework-1.0.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-core-ui-27.0.2" level="project" />

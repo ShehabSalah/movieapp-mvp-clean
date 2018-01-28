@@ -34,8 +34,8 @@ import com.shehabsalah.movieappmvpclean.models.MovieTrailers;
 import com.shehabsalah.movieappmvpclean.presentationlayer.moviedetails.adapters.ReviewsAdapter;
 import com.shehabsalah.movieappmvpclean.presentationlayer.moviedetails.adapters.TrailersAdapter;
 import com.shehabsalah.movieappmvpclean.util.Constants;
+import com.shehabsalah.movieappmvpclean.util.PicassoHandler;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,7 +100,7 @@ public class DetailsFragment extends Fragment implements DetailsContract.view {
 
     private void initViews(String image) {
         if (image != null) {
-            Picasso.with(getActivity())
+            PicassoHandler.getInstance(getActivity()).getPicasso()
                     .load(image)
                     .placeholder(R.drawable.placeholder_background)
                     .error(R.drawable.placeholder_background)
@@ -118,7 +118,7 @@ public class DetailsFragment extends Fragment implements DetailsContract.view {
                         }
                     });
         } else {
-            Picasso.with(getActivity())
+            PicassoHandler.getInstance(getActivity()).getPicasso()
                     .load(Constants.IMAGE_URL + movie.getPosterPath())
                     .placeholder(R.drawable.placeholder_background)
                     .error(R.drawable.placeholder_background)
@@ -126,7 +126,7 @@ public class DetailsFragment extends Fragment implements DetailsContract.view {
         }
 
         movieTitle.setText(movie.getTitle());
-        Picasso.with(getActivity())
+        PicassoHandler.getInstance(getActivity()).getPicasso()
                 .load(Constants.BACKDROP_URL + movie.getBackdropPath())
                 .placeholder(R.drawable.placeholder_background)
                 .error(R.drawable.placeholder_background)
