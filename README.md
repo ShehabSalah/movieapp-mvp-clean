@@ -1,4 +1,4 @@
-# movieapp-mvp-clean MVP + Clean Architecture
+# movieapp-mvp-clean MVP + Clean Architecture [![Build Status](https://travis-ci.org/ShehabSalah/movieapp-mvp-clean.svg?branch=master)](https://travis-ci.org/ShehabSalah/movieapp-mvp-clean)
 ### Summary
 This sample stands on the principles of [Clean Architecture](https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html), using MVP for the presentation layer.
 
@@ -8,7 +8,7 @@ It's based on the [MVP sample](https://github.com/ShehabSalah/movieapp-mvp), add
 * **Domain**: Holds all business logic. The domain layer starts with classes named *use cases* or *interactors* used by the application presenters. These *use cases* represent all the possible actions a developer can perform from the presentation layer.
 * **Repository**: Repository pattern from the base sample.
 
-Systems based on clean architecture have the following characteristics: separation of concerns, multilayer, independent of frameworks, independent of user interfaces, independent of databases, testable by layer, with a dependency rule that says that code dependencies can only point inwards, from lower leves like the presentation layer, to higher levels like the data layer.
+Systems based on clean architecture have the following characteristics: separation of concerns, multilayer, independent of frameworks, independent of user interfaces, independent of databases, testable by layer, with a dependency rule that says that code dependencies can only point inwards, from lower levels like the presentation layer, to higher levels like the data layer.
 
 <img src="https://github.com/googlesamples/android-architecture/wiki/images/mvp-clean.png" alt="Diagram"/>
 
@@ -21,7 +21,7 @@ Use cases are good for operation reuse over our domain code.
 
 The example application is based on the 3-tier of the clean architectural approach: the presentation layer, the domain layer, and the data layer.
 
-![http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/](https://github.com/android10/Sample-Data/blob/master/Android-CleanArchitecture/clean_architecture_layers_details.png)
+![http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/](https://github.com/android10/Sample-Data/blob/master/Android-CleanArchitecture/clean_architecture_layers.png)
 
 The presentation layer is implemented as an MVP design pattern and it represents the application is an Android phone & table module., the domain layer contains the use cases which responsible on communicating with the data layer and applying the business logic, and the data layer is the one who responsible on getting the data from the local database and remote server.
 
