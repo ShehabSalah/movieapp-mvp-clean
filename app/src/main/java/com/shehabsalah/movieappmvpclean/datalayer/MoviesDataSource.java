@@ -45,21 +45,21 @@ public interface MoviesDataSource{
     }
 
 
-    void refreshData();
+    default void refreshData(){}
     void getMovies(@NonNull LoadMoviesCallback callback, MoviesSortType filter);
     void getTrailers(@NonNull LoadTrailersCallback callback, int movieId);
     void getReviews(@NonNull LoadReviewsCallback callback, int movieId);
 
-    void saveTopRatedMovies(ArrayList<Movie> movies);
-    void saveMostPopularMovies(ArrayList<Movie> movies);
-    void saveMovieTrailers(ArrayList<MovieTrailers> movieTrailers, int movieId);
-    void saveMovieReviews(ArrayList<MovieReviews> movieReviews, int movieId);
+    default void saveTopRatedMovies(ArrayList<Movie> movies){}
+    default void saveMostPopularMovies(ArrayList<Movie> movies){}
+    default void saveMovieTrailers(ArrayList<MovieTrailers> movieTrailers, int movieId){}
+    default void saveMovieReviews(ArrayList<MovieReviews> movieReviews, int movieId){}
 
-    void updateMovie(Movie movie);
+    default void updateMovie(Movie movie){}
 
-    void deleteAllMovies();
-    void deleteMovieTrailers(int movieId);
-    void deleteMovieReviews(int movieId);
+    default void deleteAllMovies(){}
+    default void deleteMovieTrailers(int movieId){}
+    default void deleteMovieReviews(int movieId){}
 
 
 

@@ -34,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shehabsalah.movieappmvpclean.R;
+import com.shehabsalah.movieappmvpclean.datalayer.MoviesRepository;
+import com.shehabsalah.movieappmvpclean.domainlayer.MoviesUseCase;
 import com.shehabsalah.movieappmvpclean.models.Movie;
 import com.shehabsalah.movieappmvpclean.util.ApplicationClass;
 import com.shehabsalah.movieappmvpclean.util.MessageHandler;
@@ -68,7 +70,7 @@ public class MoviesListFragment extends Fragment implements MoviesContract.View 
 
 
     public MoviesListFragment() {
-        mPresenter = new MoviesPresenter(this);
+        mPresenter = new MoviesPresenter(this, new MoviesUseCase(MoviesRepository.getInstance()));
     }
 
     public static MoviesListFragment newInstance() {
@@ -204,5 +206,12 @@ public class MoviesListFragment extends Fragment implements MoviesContract.View 
             mPresenter.setBasicInit(false, false);
         }
         mPresenter.loadMovies();
+    }
+
+    @Override
+    public void onDestroy() {
+        mPresenter.onDestroy();
+        mPresenter = null;
+        super.onDestroy();
     }
 }

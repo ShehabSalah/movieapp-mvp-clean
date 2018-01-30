@@ -28,6 +28,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.shehabsalah.movieappmvpclean.R;
+import com.shehabsalah.movieappmvpclean.datalayer.MoviesRepository;
+import com.shehabsalah.movieappmvpclean.domainlayer.AddToFavoriteUseCase;
+import com.shehabsalah.movieappmvpclean.domainlayer.RemoveFromFavoriteUseCase;
+import com.shehabsalah.movieappmvpclean.domainlayer.ReviewsUseCase;
+import com.shehabsalah.movieappmvpclean.domainlayer.TrailersUseCase;
 import com.shehabsalah.movieappmvpclean.models.Movie;
 import com.shehabsalah.movieappmvpclean.models.MovieReviews;
 import com.shehabsalah.movieappmvpclean.models.MovieTrailers;
@@ -43,6 +48,7 @@ import butterknife.OnClick;
 
 /**
  * Created by ShehabSalah on 1/12/18.
+ *
  */
 
 public class DetailsFragment extends Fragment implements DetailsContract.view {
@@ -84,7 +90,12 @@ public class DetailsFragment extends Fragment implements DetailsContract.view {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.details_layout, container, false);
         ButterKnife.bind(this, mainView);
-        mPresenter = new DetailsPresenter(this, getActivity());
+        mPresenter = new DetailsPresenter(this, getActivity(),
+                new TrailersUseCase(MoviesRepository.getInstance()),
+                new ReviewsUseCase(MoviesRepository.getInstance()),
+                new AddToFavoriteUseCase(MoviesRepository.getInstance()),
+                new RemoveFromFavoriteUseCase(MoviesRepository.getInstance())
+        );
         Bundle extras = getArguments();
         if (extras != null && extras.containsKey(Constants.MOVIE_EXTRA)) {
             movie = extras.getParcelable(Constants.MOVIE_EXTRA);

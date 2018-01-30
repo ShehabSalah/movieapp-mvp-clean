@@ -24,6 +24,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
 
+import com.shehabsalah.movieappmvpclean.datalayer.MoviesRepository;
 import com.shehabsalah.movieappmvpclean.domainlayer.MoviesUseCase;
 import com.shehabsalah.movieappmvpclean.domainlayer.UseCaseCallback;
 import com.shehabsalah.movieappmvpclean.models.Movie;
@@ -49,9 +50,9 @@ public class MoviesPresenter implements MoviesContract.Presenter, UseCaseCallbac
     private boolean forceUpdate;
     private Activity activity;
 
-    MoviesPresenter(MoviesContract.View views) {
+    MoviesPresenter(MoviesContract.View views, MoviesUseCase moviesUseCase) {
         this.views = views;
-        moviesUseCase = new MoviesUseCase(this);
+        this.moviesUseCase = moviesUseCase;
     }
 
     @Override
@@ -71,6 +72,7 @@ public class MoviesPresenter implements MoviesContract.Presenter, UseCaseCallbac
 
     @Override
     public void loadMovies() {
+        moviesUseCase.setUseCaseCallback(this);
         moviesUseCase.loadMovies(moviesSortType, forceUpdate, true);
     }
 
@@ -152,5 +154,11 @@ public class MoviesPresenter implements MoviesContract.Presenter, UseCaseCallbac
     @Override
     public void onError(String error) {
         views.showServerError(error);
+    }
+
+    @Override
+    public void onDestroy() {
+        MoviesRepository.destroyInstance();
+        moviesUseCase = null;
     }
 }

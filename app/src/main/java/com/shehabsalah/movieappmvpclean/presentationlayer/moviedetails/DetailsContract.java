@@ -39,5 +39,6 @@ public interface DetailsContract {
         void loadMovieInformation(int movieId);
         void onTrailerClicked(String key);
         void onFavoriteClick(Movie movie);
+        void onDestroy();
     }
 }

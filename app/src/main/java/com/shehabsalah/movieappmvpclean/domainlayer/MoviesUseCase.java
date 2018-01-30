@@ -35,13 +35,8 @@ public class MoviesUseCase {
     private MoviesRepository moviesRepository;
     private UseCaseCallback useCaseCallback;
 
-    public MoviesUseCase(UseCaseCallback useCaseCallback) {
-        moviesRepository = MoviesRepository.getInstance();
-        this.useCaseCallback = useCaseCallback;
-    }
-
-    public MoviesUseCase() {
-        moviesRepository = MoviesRepository.getInstance();
+    public MoviesUseCase(MoviesRepository moviesRepository) {
+        this.moviesRepository = moviesRepository;
     }
 
     public void loadMovies(final MoviesSortType filter, final boolean mForceUpdate, final boolean presenterCall) {
@@ -87,15 +82,13 @@ public class MoviesUseCase {
         }, filter);
     }
 
-    public void addMovieToFavorites(UseCaseCallback.FavoriteCallBack callBack, Movie movie) {
-        movie.setFavorite(Constants.FAVORITE_ACTIVE);
-        moviesRepository.updateMovie(movie);
-        callBack.onFavoriteResponse(movie);
+    /**
+     * This method used to set the movie use case call back.
+     *
+     * @param useCaseCallback interface used to notify back with result.
+     * */
+    public void setUseCaseCallback(UseCaseCallback useCaseCallback){
+        this.useCaseCallback = useCaseCallback;
     }
 
-    public void removeMovieToFavorites(UseCaseCallback.FavoriteCallBack callBack, Movie movie) {
-        movie.setFavorite(Constants.FAVORITE_NOT_ACTIVE);
-        moviesRepository.updateMovie(movie);
-        callBack.onFavoriteResponse(movie);
-    }
 }

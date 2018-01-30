@@ -31,9 +31,8 @@ public class ReviewsUseCase {
     private MoviesRepository moviesRepository;
     private UseCaseCallback useCaseCallback;
 
-    public ReviewsUseCase(UseCaseCallback useCaseCallback) {
-        moviesRepository = MoviesRepository.getInstance();
-        this.useCaseCallback = useCaseCallback;
+    public ReviewsUseCase(MoviesRepository moviesRepository) {
+        this.moviesRepository = moviesRepository;
     }
 
     public void loadReviews(final int movieId, boolean mForceUpdate){
@@ -70,5 +69,14 @@ public class ReviewsUseCase {
                 useCaseCallback.onSuccess(response.getMessage());
             }
         }, movieId);
+    }
+
+    /**
+     * This method used to set the reviews use case call back.
+     *
+     * @param useCaseCallback interface used to notify back with result.
+     * */
+    public void setUseCaseCallback(UseCaseCallback useCaseCallback) {
+        this.useCaseCallback = useCaseCallback;
     }
 }

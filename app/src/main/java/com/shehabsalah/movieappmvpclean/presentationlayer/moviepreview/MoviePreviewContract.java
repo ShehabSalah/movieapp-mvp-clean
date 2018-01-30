@@ -27,6 +27,7 @@ public interface MoviePreviewContract {
     }
     interface presenter{
         void onFavoritePressed(Movie movie);
+        void onDestroy();
     }
 
 }

@@ -22,6 +22,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.shehabsalah.movieappmvpclean.R;
+import com.shehabsalah.movieappmvpclean.datalayer.MoviesRepository;
+import com.shehabsalah.movieappmvpclean.domainlayer.AddToFavoriteUseCase;
+import com.shehabsalah.movieappmvpclean.domainlayer.RemoveFromFavoriteUseCase;
 import com.shehabsalah.movieappmvpclean.models.Movie;
 import com.shehabsalah.movieappmvpclean.util.Constants;
 import com.shehabsalah.movieappmvpclean.util.PicassoHandler;
@@ -55,7 +58,10 @@ public class MoviePreviewActivity extends AppCompatActivity implements MoviePrev
         ButterKnife.bind(this);
         Intent intent = getIntent();
         if (intent.hasExtra(Constants.MOVIE_EXTRA)) {
-            mPresenter = new MoviePreviewPresenter(this);
+            mPresenter = new MoviePreviewPresenter(this,
+                    new AddToFavoriteUseCase(MoviesRepository.getInstance()),
+                    new RemoveFromFavoriteUseCase(MoviesRepository.getInstance())
+            );
             initViews(intent);
         } else {
             supportFinishAfterTransition();
@@ -126,5 +132,12 @@ public class MoviePreviewActivity extends AppCompatActivity implements MoviePrev
             favoriteText.setText(getString(R.string.add_favorite));
 
         this.movie = movie;
+    }
+
+    @Override
+    protected void onDestroy() {
+        mPresenter.onDestroy();
+        mPresenter = null;
+        super.onDestroy();
     }
 }

@@ -20,7 +20,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.shehabsalah.movieappmvpclean.domainlayer.AddToFavoriteUseCase;
 import com.shehabsalah.movieappmvpclean.domainlayer.MoviesUseCase;
+import com.shehabsalah.movieappmvpclean.domainlayer.RemoveFromFavoriteUseCase;
 import com.shehabsalah.movieappmvpclean.domainlayer.ReviewsUseCase;
 import com.shehabsalah.movieappmvpclean.domainlayer.TrailersUseCase;
 import com.shehabsalah.movieappmvpclean.domainlayer.UseCaseCallback;
@@ -44,19 +46,25 @@ public class DetailsPresenter implements DetailsContract.presenter, UseCaseCallb
     private DetailsContract.view view;
     private TrailersUseCase trailersUseCase;
     private ReviewsUseCase reviewsUseCase;
-    private MoviesUseCase moviesUseCase;
+    private AddToFavoriteUseCase addToFavoriteUseCase;
+    private RemoveFromFavoriteUseCase removeFromFavoriteUseCase;
     private Activity activity;
 
-    DetailsPresenter(DetailsContract.view view, Activity activity) {
-        this.view = view;
-        this.activity = activity;
-        trailersUseCase = new TrailersUseCase(this);
-        reviewsUseCase = new ReviewsUseCase(this);
-        moviesUseCase = new MoviesUseCase();
+    public DetailsPresenter(DetailsContract.view view, Activity activity, TrailersUseCase trailersUseCase,
+                            ReviewsUseCase reviewsUseCase, AddToFavoriteUseCase addToFavoriteUseCase,
+                            RemoveFromFavoriteUseCase removeFromFavoriteUseCase) {
+        this.view                       = view;
+        this.trailersUseCase            = trailersUseCase;
+        this.reviewsUseCase             = reviewsUseCase;
+        this.addToFavoriteUseCase       = addToFavoriteUseCase;
+        this.removeFromFavoriteUseCase  = removeFromFavoriteUseCase;
+        this.activity                   = activity;
     }
 
     @Override
     public void loadMovieInformation(int movieId) {
+        trailersUseCase.setUseCaseCallback(this);
+        reviewsUseCase.setUseCaseCallback(this);
         trailersUseCase.loadTrailers(movieId, false);
         reviewsUseCase.loadReviews(movieId, false);
     }
@@ -64,9 +72,9 @@ public class DetailsPresenter implements DetailsContract.presenter, UseCaseCallb
     @Override
     public void onFavoriteClick(Movie movie) {
         if (movie.getFavorite() == Constants.FAVORITE_ACTIVE)
-            moviesUseCase.removeMovieToFavorites(this, movie);
+            removeFromFavoriteUseCase.removeMovieToFavorites(this, movie);
         else
-            moviesUseCase.addMovieToFavorites(this, movie);
+            addToFavoriteUseCase.addMovieToFavorites(this, movie);
     }
 
     @Override
@@ -125,4 +133,11 @@ public class DetailsPresenter implements DetailsContract.presenter, UseCaseCallb
        dataNotAvailable();
     }
 
+    @Override
+    public void onDestroy() {
+        this.trailersUseCase            = null;
+        this.reviewsUseCase             = null;
+        this.addToFavoriteUseCase       = null;
+        this.removeFromFavoriteUseCase  = null;
+    }
 }

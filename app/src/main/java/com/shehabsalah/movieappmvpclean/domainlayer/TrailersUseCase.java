@@ -24,16 +24,15 @@ import java.util.ArrayList;
 
 /**
  * Created by shehabsalah on 1/26/18.
- *  Trailers use case.
+ * Trailers use case.
  */
 
 public class TrailersUseCase {
     private MoviesRepository moviesRepository;
     private UseCaseCallback useCaseCallback;
 
-    public TrailersUseCase(UseCaseCallback useCaseCallback) {
-        moviesRepository = MoviesRepository.getInstance();
-        this.useCaseCallback = useCaseCallback;
+    public TrailersUseCase(MoviesRepository moviesRepository) {
+        this.moviesRepository = moviesRepository;
     }
 
     public void loadTrailers(final int movieId, boolean mForceUpdate){
@@ -70,5 +69,14 @@ public class TrailersUseCase {
                 useCaseCallback.onError(response.getMessage());
             }
         }, movieId);
+    }
+
+    /**
+     * This method used to set the trailers use case call back.
+     *
+     * @param useCaseCallback interface used to notify back with result.
+     * */
+    public void setUseCaseCallback(UseCaseCallback useCaseCallback){
+        this.useCaseCallback = useCaseCallback;
     }
 }

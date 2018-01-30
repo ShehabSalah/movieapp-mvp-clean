@@ -42,6 +42,7 @@ public interface MoviesContract {
         void setBasicInit(boolean setAdapter, boolean forceUpdate);
         void setActivity(Activity activity);
         void openMoviePreview(Movie movie, android.view.View imageView, android.view.View textView, android.view.View cardView);
+        void onDestroy();
         MoviesSortType getMoviesType();
 
     }

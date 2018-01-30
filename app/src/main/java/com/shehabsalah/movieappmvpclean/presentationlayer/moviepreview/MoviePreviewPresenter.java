@@ -15,7 +15,10 @@
  */
 package com.shehabsalah.movieappmvpclean.presentationlayer.moviepreview;
 
+import com.shehabsalah.movieappmvpclean.datalayer.MoviesRepository;
+import com.shehabsalah.movieappmvpclean.domainlayer.AddToFavoriteUseCase;
 import com.shehabsalah.movieappmvpclean.domainlayer.MoviesUseCase;
+import com.shehabsalah.movieappmvpclean.domainlayer.RemoveFromFavoriteUseCase;
 import com.shehabsalah.movieappmvpclean.domainlayer.UseCaseCallback;
 import com.shehabsalah.movieappmvpclean.models.Movie;
 import com.shehabsalah.movieappmvpclean.datalayer.source.local.MovieAppDatabase;
@@ -31,23 +34,32 @@ import com.shehabsalah.movieappmvpclean.util.Constants;
 public class MoviePreviewPresenter implements MoviePreviewContract.presenter, UseCaseCallback.FavoriteCallBack {
 
     private MoviePreviewContract.view view;
-    private MoviesUseCase moviesUseCase;
+    private AddToFavoriteUseCase addToFavoriteUseCase;
+    private RemoveFromFavoriteUseCase removeFromFavoriteUseCase;
 
-    MoviePreviewPresenter(MoviePreviewContract.view view) {
+    MoviePreviewPresenter(MoviePreviewContract.view view, AddToFavoriteUseCase addToFavoriteUseCase,
+                          RemoveFromFavoriteUseCase removeFromFavoriteUseCase) {
         this.view = view;
-        moviesUseCase = new MoviesUseCase();
+        this.addToFavoriteUseCase = addToFavoriteUseCase;
+        this.removeFromFavoriteUseCase = removeFromFavoriteUseCase;
     }
 
     @Override
     public void onFavoritePressed(Movie movie) {
         if (movie.getFavorite() == Constants.FAVORITE_ACTIVE)
-            moviesUseCase.removeMovieToFavorites(this, movie);
+            removeFromFavoriteUseCase.removeMovieToFavorites(this, movie);
         else
-           moviesUseCase.addMovieToFavorites(this, movie);
+           addToFavoriteUseCase.addMovieToFavorites(this, movie);
     }
 
     @Override
     public void onFavoriteResponse(Movie movie) {
         view.onFavoriteResponse(movie);
+    }
+
+    @Override
+    public void onDestroy() {
+        addToFavoriteUseCase = null;
+        removeFromFavoriteUseCase = null;
     }
 }
